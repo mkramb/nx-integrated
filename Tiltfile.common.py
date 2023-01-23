@@ -4,7 +4,7 @@ def __build_nest(service_name, port_forwards=[]):
 
     docker_build(
         service_name + "-image",
-        dockerfile="Dockerfile.nest",
+        dockerfile="Dockerfile.nest-app",
         context=".",
         build_args={"node_env": "development", "service_name": service_name},
         only=[
@@ -18,7 +18,30 @@ def __build_nest(service_name, port_forwards=[]):
             "./apps/" + service_name + "/tsconfig.json",
             "./apps/" + service_name + "/webpack.config.js",
         ],
-        entrypoint="node /dist/" + service_name + "/main.js",
+    )
+
+
+def __build_next(service_name, port_forwards=[]):
+    k8s_yaml(".k8s/apps/" + service_name + ".yaml")
+    k8s_resource(service_name, port_forwards=port_forwards, labels=["apps"])
+
+    docker_build(
+        service_name + "-image",
+        dockerfile="Dockerfile.next-app",
+        context=".",
+        build_args={"node_env": "development", "service_name": service_name},
+        only=[
+            "./nx.json",
+            "./package.json",
+            "./tsconfig.base.json",
+            "./babel.config.json",
+            "./yarn.lock",
+            "./apps/" + service_name + "/pages",
+            "./apps/" + service_name + "/public",
+            "./apps/" + service_name + "/project.json",
+            "./apps/" + service_name + "/tsconfig.json",
+            "./apps/" + service_name + "/next.config.js",
+        ],
     )
 
 
@@ -31,3 +54,4 @@ def init():
 
     # apps
     __build_nest("api", "3001:3001")
+    __build_next("web", "4001:4001")

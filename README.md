@@ -1,13 +1,25 @@
 # NxIntegrated
 
+- Package-based repos focus on flexibility and ease of adoption. 
+- Integrated repos focus on efficiency and ease of maintenance.
+
 ## Common usage
 
+Running backend & frontend:
+
 ```
-yarn nx serve api
-yarn nx test api
+yarn nx run-many --parallel --target=serve --projects=api,web
+yarn nx run-many --parallel --target=test
 ```
 
-Running Tilt:
+Running specific apps:
+
+```
+yarn nx serve <app-name>
+yarn nx test <app-name>
+```
+
+Running with Tilt:
 
 ```
 tilt up
@@ -15,13 +27,9 @@ tilt up
 
 ## Setup
 
-```
-yarn create nx-workspace nx-integrated --preset=ts
-```
-
-Adding api service:
+Adding `api` or `web` apps:
 
 ```
-yarn add -D -W @nrwl/nest
 yarn nx g @nrwl/nest:app api
+yarn nx g @nrwl/next:app web
 ```

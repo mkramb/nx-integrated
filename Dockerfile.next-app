@@ -1,0 +1,40 @@
+FROM node:lts-bullseye as base
+LABEL layer="base"
+
+WORKDIR /service
+COPY nx.json .
+COPY package.json .
+COPY tsconfig.base.json .
+COPY babel.config.json .
+COPY yarn.lock .
+RUN yarn install
+
+FROM base as build
+LABEL layer="src"
+
+ARG service_name
+
+WORKDIR /service
+COPY ./apps/${service_name} ./apps/${service_name}
+RUN yarn nx build ${service_name}
+
+FROM build as install
+LABEL layer="install"
+
+WORKDIR /service/dist/apps/${service_name}
+RUN yarn install
+
+FROM node:alpine as dist
+LABEL layer="dist"
+
+ARG service_name
+ARG node_env=production
+ENV NODE_ENV $node_env
+
+WORKDIR /dist/${service_name}
+COPY --from=install /service/dist/apps/${service_name}/node_modules ./node_modules
+COPY --from=install /service/dist/apps/${service_name}/public ./public
+COPY --from=install /service/dist/apps/${service_name}/.next ./.next
+COPY --from=install /service/dist/apps/${service_name} .
+
+CMD yarn start -p 4001

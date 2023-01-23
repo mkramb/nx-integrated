@@ -1,1 +1,1 @@
-export const MESSAGE = "Welcome from server";
+export const MESSAGE = "Welcome from SERVER";

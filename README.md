@@ -1,4 +1,4 @@
-# NxIntegrated
+# Nx Integrated
 
 - Package-based repos focus on flexibility and ease of adoption. 
 - Integrated repos focus on efficiency and ease of maintenance.
@@ -9,7 +9,7 @@ The comparison between package-based repos and integrated repos is similar to th
 
 ## Common usage
 
-Running backend & frontend:
+Running `backend` & `frontend`:
 
 ```
 yarn nx run-many --parallel --target=serve --projects=api,web
@@ -39,8 +39,12 @@ yarn nx g @nrwl/next:app web
 yarn nx g @nrwl/js:library contracts
 ```
 
-## Affected
+## NX utilities
+
+Run `yarn nx graph` to see a diagram of the dependencies of the projects.
+
+Only `build` what has changed:
 
 ```
-yarn nx affected:build --base=origin/master~1 --head=HEAD --with-deps
+yarn nx affected:build --base=origin/master~1 --head=HEAD
 ```

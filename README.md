@@ -38,3 +38,9 @@ yarn nx g @nrwl/nest:app api
 yarn nx g @nrwl/next:app web
 yarn nx g @nrwl/js:library contracts
 ```
+
+## Affected
+
+```
+yarn nx affected:build --base=origin/master~1 --head=HEAD --with-deps
+```

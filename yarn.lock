@@ -1777,7 +1777,7 @@
     resolve.exports "1.1.0"
     tslib "^2.3.0"
 
-"@nrwl/js@15.5.3":
+"@nrwl/js@15.5.3", "@nrwl/js@^15.5.3":
   version "15.5.3"
   resolved "https://registry.yarnpkg.com/@nrwl/js/-/js-15.5.3.tgz#f180560c7e1703eb52f6f46cdf5666c5dc079fd7"
   integrity sha512-wOkupYzuCzzYOacDL4fJyi6yS9x56SNLPKzMIOtVgWNu7K5WFxwhQ3Pkbc2VgdjIpif5pU7cxYLfyZLNYaZSbw==

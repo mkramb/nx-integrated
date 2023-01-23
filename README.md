@@ -29,11 +29,12 @@ Running with Tilt:
 tilt up
 ```
 
-## Setup
+## Generators
 
 Adding `api` or `web` apps:
 
 ```
 yarn nx g @nrwl/nest:app api
 yarn nx g @nrwl/next:app web
+yarn nx g @nrwl/js:library contracts
 ```

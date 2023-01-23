@@ -15,6 +15,7 @@ LABEL layer="src"
 ARG service_name
 
 WORKDIR /service
+COPY ./libs ./libs
 COPY ./apps/${service_name} ./apps/${service_name}
 RUN yarn nx build ${service_name}
 
